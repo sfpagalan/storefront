@@ -1,6 +1,5 @@
 const initialState = {
-    activeCategory: 'ALL',
-    products: [
+    allProducts: [
       {
         id: 1,
         category: 'FIGURINES',
@@ -42,19 +41,21 @@ const initialState = {
         inventory: 5
       },
     ],
+    filteredProducts: [],
+    activeCategory: 'ALL',
   };
   
   const productsReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'CHANGE_ACTIVE_CATEGORY': {
         const filteredProducts = action.payload === 'ALL'
-          ? state.products
-          : state.products.filter(product => product.category === action.payload);
-        
+          ? state.allProducts
+          : state.allProducts.filter(product => product.category === action.payload);
+  
         return {
           ...state,
           activeCategory: action.payload,
-          products: filteredProducts,
+          filteredProducts,
         };
       }
       default:
@@ -63,4 +64,3 @@ const initialState = {
   };
   
   export default productsReducer;
-  
